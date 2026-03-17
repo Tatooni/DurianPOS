@@ -18,6 +18,7 @@ jobs:
 
       - name: Install Buildozer
         run: |
+          pip install cython
           pip install buildozer
 
       - name: Build APK
