@@ -35,8 +35,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install buildozer cython==0.29.36
 
+      - name: Install Android Build Tools
+        run: |
+          yes | sdkmanager "platform-tools"
+          yes | sdkmanager "build-tools;33.0.2"
+          yes | sdkmanager "platforms;android-33"
+
       - name: Build APK
         run: |
+          buildozer android clean
           buildozer android debug
 
       - name: Upload APK
