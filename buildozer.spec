@@ -20,6 +20,8 @@ osx.kivy_version = 2.3.1
 android.permissions = INTERNET
 android.api = 33
 android.minapi = 21
+android.ndk = 25b
+android.accept_sdk_license = True
 android.archs = arm64-v8a, armeabi-v7a
 
 presplash_color = #228B22
