@@ -5,7 +5,8 @@ package.name = durianpos
 package.domain = org.chong
 
 source.dir = .
-source.include_exts = py,png,jpg,jpeg,kv,atlas,db
+source.include_exts = py,png,jpg,jpeg,kv,atlas
+source.exclude_patterns = *.db
 
 version = 1.0
 
