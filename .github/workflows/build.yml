@@ -33,7 +33,6 @@ jobs:
       - name: Build APK
         run: |
           buildozer android debug 2>&1 | tee build.log
-          continue-on-error: true
 
       - name: Upload build log
         uses: actions/upload-artifact@v4
@@ -43,6 +42,7 @@ jobs:
 
       - name: Fail if build failed
         run: |
+          ls -la bin || true
           test -f bin/*.apk
 
       - name: Upload APK
