@@ -9,9 +9,10 @@ source.include_exts = py,png,jpg,jpeg,kv,atlas,db
 
 version = 1.0
 
-requirements = python3,kivy
+requirements = python3,kivy,sqlite3
 
 orientation = portrait
+source.main = main.py
 fullscreen = 0
 
 osx.python_version = 3
