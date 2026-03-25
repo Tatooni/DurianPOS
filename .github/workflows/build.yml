@@ -3,6 +3,7 @@ name: Build Android APK
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -23,7 +24,8 @@ jobs:
           sudo apt install -y \
             git zip unzip openjdk-17-jdk python3-pip autoconf automake libtool \
             pkg-config cmake libffi-dev libssl-dev zlib1g-dev \
-            libncurses5-dev libncursesw5-dev libltdl-dev
+            libncurses5-dev libncursesw5-dev libltdl-dev \
+            build-essential ccache libjpeg-dev libpng-dev
 
       - name: Install Python tools
         run: |
@@ -31,8 +33,19 @@ jobs:
           pip install buildozer cython==0.29.33
 
       - name: Build APK
-        run: 
-          buildozer -v android debug
+        run: |
+          echo "===== START BUILD ====="
+          set -o pipefail
+
+          buildozer android clean
+
+          buildozer -v android debug > build.log 2>&1 || (
+            echo "===== BUILD FAILED — SHOW LAST LOG ====="
+            tail -n 400 build.log
+            exit 1
+          )
+
+          echo "===== BUILD FINISHED ====="
 
       - name: Upload build log
         uses: actions/upload-artifact@v4
