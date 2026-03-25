@@ -25,13 +25,14 @@ android.archs = arm64-v8a, armeabi-v7a
 
 android.enable_androidx = False
 android.accept_sdk_license = True
+android.release_artifact = apk
 
 android.entrypoint = org.kivy.android.PythonActivity
 
 android.presplash_color = #FFFFFF
 android.logcat_filters = *:S python:D
 
-p4a.branch = stable
+p4a.branch = develop
 
 [buildozer]
 
