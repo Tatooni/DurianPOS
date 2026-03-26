@@ -2,39 +2,41 @@
 
 title = Durian POS
 package.name = durianpos
-package.domain = org.chong.durian
+package.domain = org.test
 
 source.dir = .
-source.include_exts = py,png,jpg,jpeg,kv,atlas,db
-
+source.include_exts = py,png,jpg,kv,atlas,db
 version = 1.0
 
-requirements = python3,kivy==2.3.0,sqlite3
+requirements = python3,kivy,sqlite3
 
 orientation = portrait
-fullscreen = 0
+fullscreen = 1
 
-android.permissions = INTERNET
+icon.filename = %(source.dir)s/icon.png
+presplash.filename = %(source.dir)s/presplash.png
 
-android.api = 31
-android.minapi = 21
-
+# Android
+android.api = 34
+android.minapi = 24
 android.ndk = 25b
-android.ndk_api = 21
-
-android.archs = arm64-v8a,armeabi-v7a
-
-android.enable_androidx = False
 android.accept_sdk_license = True
+android.permissions = INTERNET
+android.archs = arm64-v8a, armeabi-v7a
 
-android.release_artifact = apk
+# Keep screen on while app is open
+android.wakelock = False
 
-android.entrypoint = org.kivy.android.PythonActivity
+# App entry
+entrypoint = main.py
 
-android.presplash_color = #FFFFFF
-android.logcat_filters = *:S python:D
+# Do not copy python source into private storage only
+android.private_storage = True
 
-p4a.branch = develop
+# Build mode
+log_level = 2
+warn_on_root = 1
+
 
 [buildozer]
 
