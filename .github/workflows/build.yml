@@ -31,10 +31,6 @@ jobs:
           libncurses5-dev libncursesw5-dev cmake \
           libffi-dev libssl-dev git libltdl-dev
 
-      - name: Clean previous build
-        run: |
-          buildozer android clean
-
       - name: Build APK
         run: |
           buildozer -v android debug
