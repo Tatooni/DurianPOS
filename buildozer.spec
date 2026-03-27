@@ -5,8 +5,7 @@ package.name = durianpos
 package.domain = org.durian
 
 source.dir = .
-source.include_exts = py,png,jpg,kv,atlas
-
+source.include_exts = py,png,jpg,kv,atlas,db
 version = 1.0
 
 requirements = python3==3.10.11,kivy==2.2.1
@@ -15,13 +14,10 @@ orientation = portrait
 fullscreen = 0
 
 android.permissions = INTERNET
-
 android.api = 33
 android.minapi = 24
 android.ndk = 25b
-
-p4a.branch = develop
-
+android.archs = arm64-v8a
 android.accept_sdk_license = True
 
 [buildozer]
