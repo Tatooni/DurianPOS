@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install dependencies
+      - name: Install system dependencies
         run: |
           sudo apt update
           sudo apt install -y zip unzip openjdk-17-jdk python3-pip \
@@ -28,22 +28,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install buildozer cython==0.29.36
 
-      - name: Full reset build cache
+      - name: Clean previous builds
         run: |
           rm -rf .buildozer
           rm -rf ~/.buildozer
           rm -rf bin
 
-      - name: Initialize Android SDK
-        run: |
-          buildozer android debug || true
-
-      - name: Accept licenses and install SDK packages
-        run: |
-          SDKMANAGER="$HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager"
-          yes | "$SDKMANAGER" --licenses || true
-          "$SDKMANAGER" "platform-tools" "platforms;android-33" "build-tools;33.0.2"
-
+      # 🚀 IMPORTANT: Let Buildozer install SDK + accept license itself
       - name: Build APK
         run: |
           buildozer -v android debug
