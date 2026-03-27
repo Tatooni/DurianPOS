@@ -12,26 +12,17 @@ version = 1.0
 requirements = kivy
 
 orientation = portrait
-
 fullscreen = 0
 
+android.permissions = INTERNET
+android.api = 33
+android.minapi = 24
+android.arch = arm64-v8a
+android.accept_sdk_license = True
+
+p4a.branch = stable
 
 [buildozer]
 
 log_level = 2
-
-
-[app:android]
-
-android.permissions = INTERNET
-
-android.api = 33
-android.minapi = 24
-android.arch = arm64-v8a
-
-p4a.branch = stable
-
-
-[app:android:logcat]
-
-log_level = I
+warn_on_root = 1
