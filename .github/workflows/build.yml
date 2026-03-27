@@ -6,24 +6,29 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04   # IMPORTANT (not latest)
 
     steps:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Setup Python 3.10 ✅
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
     - name: Install system packages
       run: |
         sudo apt update
-        sudo apt install -y zip unzip openjdk-17-jdk python3-pip build-essential git
+        sudo apt install -y zip unzip openjdk-17-jdk build-essential git
 
     - name: Install dependencies
       run: |
-        pip install --upgrade pip
+        python -m pip install --upgrade pip
         pip install buildozer==1.5.0
         pip install cython==0.29.33
 
-    - name: Build APK (FULL CLEAN FIX)
+    - name: Build APK (CLEAN FIX)
       run: |
         rm -rf .buildozer
         rm -rf ~/.buildozer
