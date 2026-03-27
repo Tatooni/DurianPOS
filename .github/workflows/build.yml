@@ -28,23 +28,22 @@ jobs:
           python -m pip install --upgrade pip
           pip install buildozer cython==0.29.36
 
-      - name: Clean build
+      - name: Full reset build cache
         run: |
           rm -rf .buildozer
           rm -rf ~/.buildozer
           rm -rf bin
 
-      # STEP 1: Initialize Android SDK (IMPORTANT)
-      - name: Initialize SDK
+      - name: Initialize Android SDK
         run: |
           buildozer android debug || true
 
-      # STEP 2: Accept licenses AFTER SDK exists
-      - name: Accept Licenses
+      - name: Accept licenses and install SDK packages
         run: |
-          yes | ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          SDKMANAGER="$HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$SDKMANAGER" --licenses || true
+          "$SDKMANAGER" "platform-tools" "platforms;android-33" "build-tools;33.0.2"
 
-      # STEP 3: REAL BUILD
       - name: Build APK
         run: |
           buildozer -v android debug
