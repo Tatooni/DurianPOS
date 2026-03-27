@@ -34,7 +34,6 @@ jobs:
           rm -rf ~/.buildozer
           rm -rf bin
 
-      # 🚀 IMPORTANT: Let Buildozer install SDK + accept license itself
       - name: Build APK
         run: |
           buildozer -v android debug
