@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout
@@ -20,9 +20,12 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt update
-          sudo apt install -y zip unzip openjdk-17-jdk python3-pip \
-            build-essential git wget curl autoconf automake libtool \
-            pkg-config m4 zlib1g-dev libncurses5-dev libncursesw5-dev \
+          sudo apt install -y \
+            zip unzip openjdk-17-jdk python3-pip \
+            build-essential git wget curl \
+            autoconf automake libtool libtool-bin pkg-config m4 \
+            libltdl-dev gettext autopoint \
+            zlib1g-dev libncurses5-dev libncursesw5-dev \
             cmake libffi-dev libssl-dev
 
           python -m pip install --upgrade pip
