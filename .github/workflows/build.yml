@@ -9,37 +9,41 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Setup Python 3.10
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
 
-    - name: Install system packages
-      run: |
-        sudo apt update
-        sudo apt install -y zip unzip openjdk-17-jdk build-essential git
+      - name: Install system packages
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            zip unzip openjdk-17-jdk build-essential git \
+            autoconf automake libtool pkg-config \
+            zlib1g-dev libncurses5-dev libncursesw5-dev \
+            libtinfo5 cmake libffi-dev libssl-dev libltdl-dev
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install buildozer==1.5.0
-        pip install cython==0.29.33
+      - name: Install Python tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install "setuptools<70" "wheel<0.43"
+          pip install buildozer==1.5.0 cython==0.29.33
 
-    - name: Build APK (FINAL FIX)
-      run: |
-        rm -rf .buildozer
-        rm -rf ~/.buildozer
+      - name: Clean old build caches
+        run: |
+          rm -rf .buildozer
+          rm -rf ~/.buildozer
 
-        buildozer init || true
-        buildozer android update
+      - name: Build APK
+        run: |
+          buildozer -v android debug
 
-        yes | buildozer android debug
-
-    - name: Upload APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: DurianPOS-APK
-        path: bin/*.apk
+      - name: Upload APK
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: DurianPOS-APK
+          path: bin/*.apk
