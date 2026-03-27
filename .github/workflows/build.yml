@@ -6,13 +6,13 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04   # IMPORTANT (not latest)
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Setup Python 3.10 ✅
+    - name: Setup Python 3.10
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
@@ -28,12 +28,15 @@ jobs:
         pip install buildozer==1.5.0
         pip install cython==0.29.33
 
-    - name: Build APK (CLEAN FIX)
+    - name: Build APK (FINAL FIX)
       run: |
         rm -rf .buildozer
         rm -rf ~/.buildozer
-        buildozer android clean
-        buildozer -v android debug
+
+        buildozer init || true
+        buildozer android update
+
+        yes | buildozer android debug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
